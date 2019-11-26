@@ -1,5 +1,8 @@
 import React, { Component, Fragment, useState } from 'react'
+import { connect } from "react-redux"
 import { Link } from "react-router-dom"
+import { setAlert } from "../../actions/alert"
+import PropTypes from 'prop-types'
 import axios from "axios"
 
 class Register extends Component {
@@ -30,7 +33,7 @@ class Register extends Component {
       const password2 = e.target.password2.value
       
       if(password !== password2){
-         console.log("Passwords do not match")
+         this.props.setAlert("Passwords do not match", "danger")
       }
       else{ console.log("Success")
          // const newUser = {
@@ -122,4 +125,11 @@ class Register extends Component {
    }
 }
 
-export default Register
+Register.propTypes = {
+   setAlert: PropTypes.func.isRequired,
+}
+
+export default connect(
+   null,
+   { setAlert }
+   )(Register)
